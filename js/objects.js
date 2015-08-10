@@ -9,6 +9,7 @@ var Animal = function(name, age, kind){
 };
 
 var pig = new Animal("Joe", 2, "pig");
+var horse = new Animal("Sally", 8, "horse");
 
 Animal.prototype.oink = function (){
   if (this.kind === "pig")
@@ -23,6 +24,8 @@ Animal.prototype.growUp = function(){
 Animal.prototype.feed = function(){
   if(this.awake)
     return  "NOM, NOM, NOM";
+  else
+    return "Zzz, Zzz, Zzz";
 };
 
 Animal.prototype.wakeUp = function(){
@@ -51,16 +54,23 @@ Zoo.prototype.changeLocation = function(newLocation){
 };
 
 Zoo.prototype.change = function(){
-  this.status = 'open';
+  if(this.status === "closed")
+    this.status = 'open';
+  else this.status = 'closed';
 };
 
 Zoo.prototype.isOpen = function(){
   if (this.status === 'open')
     return "Open!";
+  else
+    return "Closed!"
 };
 
 Zoo.prototype.addAnimal = function(animal){
-  this.animals.push(animal)
+  if(zoo.status === "open" &&
+     animal instanceof Animal &&
+     this.animals.indexOf(animal) === -1)
+  this.animals.push(animal);
 };
 
 Zoo.prototype.removeAnimal = function(animal){
@@ -68,20 +78,3 @@ Zoo.prototype.removeAnimal = function(animal){
   this.animals.splice(index, 1);
 };
 
-// name
-// location
-// status - this should default to "closed"
-// animals - this should default to an empty array
-// changeLocation() - a method that updates the location of the zoo
-// open() - a method that changes the status to "open"
-// close() - open - a method that changes the status to "closed"
-// isOpen() - a method that returns "Open!" if the zoo is not closed
-// addAnimal() - a method that adds an animal to the animals array ONLY if the zoo is open, the animal is an instance of the Animal class AND the animal is not already in the animals array.
-// removeAnimal() - a method that removes an animal from the animals array ONLY if the zoo is open.
-
-
-// oink() - returns "oink!" if the instance of an animal is a pig.
-// growUp() - a method that increases the age of the animal by one
-// feed() - if the animal is awake, return "NOM NOM NOM"
-// wakeUp() - a method that changes the awake property to true
-// sleep() - a method that changes the awake property to false
